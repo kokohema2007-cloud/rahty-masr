@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="راحتي في مصر منصة خدمات راقية داخل مصر تبدأ بمساعد ذكي بسيط يجمع بياناتك ثم يوجهك إلى الخدمة المناسبة بسهولة.">
+<title>راحتي في مصر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #090909;
+  --bg-soft: #101010;
+  --panel: rgba(14, 14, 14, 0.94);
+  --panel-2: rgba(22, 22, 22, 0.94);
+  --card-border: rgba(212, 175, 55, 0.16);
+  --text: #f6f0dd;
+  --muted: #cdbf96;
+  --gold: #d4af37;
+  --gold-strong: #f1ca5a;
+  --green: #25d366;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.34);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Cairo", sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(212, 175, 55, 0.12), transparent 24%),
+    linear-gradient(180deg, #070707 0%, #0b0b0b 38%, #101010 100%);
+  color: var(--text);
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+a { color: inherit; }
+button, input, textarea { font: inherit; }
+.container { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(16px);
+  background: rgba(7, 7, 7, 0.86);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.14);
+}
+
+.topbar-inner {
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold-strong);
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, rgba(212, 175, 55, 0.28), rgba(212, 175, 55, 0.08));
+  border: 1px solid rgba(212, 175, 55, 0.28);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.nav-links a,
+.nav-links button {
+  color: var(--text);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.nav-links a:hover,
+.nav-links button:hover {
+  color: var(--gold-strong);
+}
+
+.hero {
+  min-height: calc(100vh - 78px);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(102deg, rgba(0, 0, 0, 0.88) 18%, rgba(0, 0, 0, 0.34) 56%, rgba(0, 0, 0, 0.78) 100%),
+    url("./hero-main.jpg") center/cover no-repeat;
+  transform: scale(1.02);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 130px;
+  background: linear-gradient(180deg, transparent, rgba(9, 9, 9, 0.96));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(760px, 100%);
+  padding: 60px 0 74px;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--gold-strong);
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  line-height: 1.15;
+}
+
+.hero p {
+  margin: 18px 0 26px;
+  max-width: 650px;
+  color: #eadfb9;
+  line-height: 1.9;
+  font-size: 1.08rem;
+}
+
+.hero-actions,
+.assistant-actions,
+.card-actions,
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  border-radius: 14px;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: linear-gradient(145deg, var(--gold-strong), #a87b11);
+  color: #111;
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.22);
+}
+
+.btn-secondary {
+  background: rgba(18, 18, 18, 0.9);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.section {
+  padding: 84px 0;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 34px;
+}
+
+.section-head h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+}
+
+.section-head p {
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.cart-shell {
+  margin-top: -18px;
+  position: relative;
+  z-index: 3;
+}
+
+.cart-panel {
+  padding: 24px 26px;
+  background:
+    linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.03)),
+    linear-gradient(180deg, rgba(19, 19, 19, 0.97), rgba(10, 10, 10, 0.97));
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+}
+
+.cart-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.cart-head h2 {
+  margin: 0 0 8px;
+  color: var(--gold-strong);
+}
+
+.cart-head p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 720px;
+}
+
+.cart-badge {
+  min-width: 108px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.cart-badge strong {
+  display: block;
+  color: var(--gold-strong);
+  font-size: 1.35rem;
+}
+
+.cart-badge span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.cart-body {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1.3fr 300px;
+  gap: 18px;
+}
+
+.cart-items {
+  display: grid;
+  gap: 12px;
+}
+
+.cart-empty {
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.cart-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cart-item strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.cart-item small {
+  color: var(--muted);
+  display: block;
+  line-height: 1.8;
+}
+
+.cart-item-meta {
+  text-align: left;
+}
+
+.cart-item-price {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--gold-strong);
+  font-weight: 800;
+}
+
+.cart-summary {
+  padding: 18px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  align-self: start;
+}
+
+.cart-summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cart-summary-row:last-of-type {
+  border-bottom: 0;
+}
+
+.cart-summary-row.total {
+  color: var(--gold-strong);
+  font-weight: 800;
+  font-size: 1.04rem;
+}
+
+.cart-note {
+  margin: 14px 0 0;
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 0.94rem;
+}
+
+.btn-remove {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.assistant-panel {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 18px;
+  margin-top: -34px;
+  position: relative;
+  z-index: 2;
+}
+
+.assistant-card,
+.profile-card,
+.category-card,
+.service-card {
+  background: linear-gradient(180deg, rgba(19, 19, 19, 0.96), rgba(12, 12, 12, 0.96));
+  border: 1px solid var(--card-border);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+}
+
+.assistant-card,
+.profile-card {
+  padding: 26px;
+}
+
+.assistant-card h2,
+.profile-card h3 {
+  margin: 0 0 10px;
+}
+
+.assistant-card p,
+.profile-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.profile-meta {
+  margin: 18px 0 0;
+  display: grid;
+  gap: 10px;
+}
+
+.profile-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.category-card {
+  padding: 22px;
+}
+
+.category-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212, 175, 55, 0.1);
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+}
+
+.category-card h3 {
+  margin: 0 0 8px;
+  color: var(--gold-strong);
+}
+
+.category-card p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.category-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.category-tags span {
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #e6d6a4;
+  font-size: 0.9rem;
+}
+
+.service-sections {
+  display: grid;
+  gap: 26px;
+}
+
+.service-section {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 30px;
+  padding: 26px;
+}
+
+.service-section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.service-section-head h3 {
+  margin: 0 0 8px;
+  color: var(--gold-strong);
+  font-size: 1.5rem;
+}
+
+.service-section-head p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 720px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.service-card {
+  padding: 20px;
+}
+
+.service-card strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 1.06rem;
+}
+
+.service-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.8;
+  min-height: 86px;
+}
+
+.service-price {
+  display: inline-block;
+  margin: 14px 0;
+  color: var(--gold-strong);
+  font-weight: 800;
+}
+
+.btn-cart {
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--text);
+  border: 1px solid rgba(212, 175, 55, 0.24);
+}
+
+.btn-cart.is-added {
+  background: rgba(212, 175, 55, 0.18);
+  color: var(--gold-strong);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(0, 0, 0, 0.72);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-backdrop.is-open {
+  display: flex;
+}
+
+.assistant-modal {
+  width: min(620px, 100%);
+  background: linear-gradient(180deg, rgba(18, 18, 18, 0.98), rgba(10, 10, 10, 0.98));
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: 30px;
+  padding: 28px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.44);
+}
+
+.assistant-modal h2 {
+  margin: 0 0 10px;
+  color: var(--gold-strong);
+}
+
+.assistant-modal p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.field label {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.field input {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #171717;
+  color: var(--text);
+  padding: 12px 14px;
+  outline: none;
+}
+
+.field input:focus {
+  border-color: rgba(212, 175, 55, 0.7);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+}
+
+.status {
+  min-height: 24px;
+  margin-top: 10px;
+  font-size: 0.94rem;
+}
+
+.status.error { color: #ff7d7d; }
+.status.success { color: #33d77a; }
+
+.whatsapp-btn {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green);
+  color: white;
+  text-decoration: none;
+  font-size: 1.8rem;
+  box-shadow: 0 14px 30px rgba(37, 211, 102, 0.28);
+  z-index: 60;
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.08);
+}
+
+footer {
+  text-align: center;
+  padding: 24px 16px 34px;
+  color: #9e936e;
+}
+
+@media (max-width: 920px) {
+  .assistant-panel {
+    grid-template-columns: 1fr;
+    margin-top: 26px;
+  }
+
+  .cart-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .topbar-inner {
+    flex-direction: column;
+    padding-block: 14px;
+  }
+
+  .service-section-head {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .container { width: min(100% - 22px, 100%); }
+  .hero { min-height: auto; }
+  .hero-content { padding: 42px 0 62px; }
+  .assistant-modal,
+  .assistant-card,
+  .profile-card,
+  .service-section,
+  .category-card { padding: 22px; }
+  .nav-links { justify-content: center; gap: 14px; font-size: 0.95rem; }
+}
+</style>
+</head>
+<body>
+<div class="modal-backdrop" id="welcomeModal">
+  <div class="assistant-modal">
+    <h2>أهلًا بك في راحتي في مصر</h2>
+    <p>أنا مساعدك الذكي داخل الموقع. في البداية سأجمع اسمك ورقم موبايلك، وبعدها سأفتح لك قائمة الخدمات المناسبة بحيث تختار القسم والخدمة بسهولة.</p>
+
+    <form id="welcomeForm">
+      <div class="field">
+        <label for="welcomeName">الاسم</label>
+        <input type="text" id="welcomeName" placeholder="اكتب اسمك">
+      </div>
+
+      <div class="field">
+        <label for="welcomePhone">رقم الموبايل</label>
+        <input type="tel" id="welcomePhone" placeholder="010xxxxxxxx">
+      </div>
+
+      <div class="status" id="welcomeStatus"></div>
+
+      <div class="modal-actions" style="margin-top: 18px;">
+        <button type="submit" class="btn btn-primary">ابدأ الآن</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">✦</span>
+      <span>راحتي في مصر</span>
+    </a>
+
+    <nav class="nav-links" aria-label="التنقل الرئيسي">
+      <a href="#categories">الأقسام</a>
+      <a href="#services">الخدمات</a>
+      <a href="#cart">Cart</a>
+      <a href="realestate.html">العقارات</a>
+      <a href="technology.html">التكنولوجيا</a>
+      <a href="whatsapp-numbers.html">واتساب</a>
+      <button type="button" onclick="openWelcomeModal(true)">تعديل البيانات</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <span class="eyebrow">خدمات راقية داخل مصر</span>
+        <h1>ابدأ مع مساعد ذكي يرتب لك الخدمة المناسبة من أول خطوة</h1>
+        <p>الموقع مخصص لتسهيل الطلب على العرب والخليجيين داخل مصر. نبدأ بجمع بياناتك الأساسية، ثم نعرض لك أقسام واضحة: خدمات منزلية، توصيل وسائقين، تسوق، عقارات، وتكنولوجيا. كل خدمة لها أوردر مخصص وواضح.</p>
+
+        <div class="hero-actions">
+          <button type="button" class="btn btn-primary" onclick="scrollToCategories()">اختيار الخدمة</button>
+          <a class="btn btn-secondary" href="whatsapp-numbers.html">التواصل على واتساب</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container cart-shell">
+      <section class="cart-panel" id="cart">
+        <div class="cart-head">
+          <div>
+            <h2>Cart الخدمات</h2>
+            <p>لو محتاج أكثر من خدمة، أضفهم هنا وبعدها ابعت الطلب كله مرة واحدة على واتساب بنفس بياناتك الحالية.</p>
+          </div>
+          <div class="cart-badge">
+            <strong id="cartCount">0</strong>
+            <span>خدمة مختارة</span>
+          </div>
+        </div>
+
+        <div class="cart-body">
+          <div class="cart-items" id="cartItems"></div>
+
+          <aside class="cart-summary">
+            <div class="cart-summary-row">
+              <span>عدد الخدمات</span>
+              <strong id="cartSummaryCount">0</strong>
+            </div>
+            <div class="cart-summary-row total">
+              <span>إجمالي رسوم الحجز</span>
+              <strong id="cartSummaryTotal">0 جنيه</strong>
+            </div>
+            <div class="card-actions" style="margin-top: 18px;">
+              <button type="button" class="btn btn-primary" id="sendCartBtn">متابعة الأوردر</button>
+              <button type="button" class="btn btn-remove" id="clearCartBtn">تفريغ الـ Cart</button>
+            </div>
+            <p class="cart-note" id="cartStatus">تقدر تكمل الأوردر المفرد كمان من زر اعمل أوردر لو محتاج خدمة واحدة فقط.</p>
+          </aside>
+        </div>
+      </section>
+    </div>
+
+    <div class="container assistant-panel">
+      <div class="assistant-card">
+        <h2>المساعد الذكي داخل الموقع</h2>
+        <p>بعد حفظ بياناتك، ستختار القسم المناسب ثم الخدمة الفرعية التي تحتاجها. كل زر <strong>اعمل أوردر</strong> يفتح نموذجًا مخصصًا للبند المختار فقط، بدون تشتيت أو قوائم غير لازمة.</p>
+        <div class="assistant-actions" style="margin-top: 18px;">
+          <button type="button" class="btn btn-primary" onclick="scrollToCategories()">ابدأ من الأقسام</button>
+          <button type="button" class="btn btn-secondary" onclick="openWelcomeModal(true)">تحديث الاسم والموبايل</button>
+        </div>
+      </div>
+
+      <aside class="profile-card">
+        <h3>البيانات الحالية</h3>
+        <p>هذه البيانات ستنتقل تلقائيًا إلى صفحة الطلب حتى لا تضطر لإدخالها كل مرة.</p>
+        <div class="profile-meta">
+          <span class="profile-chip">الاسم: <strong id="profileName">غير مسجل</strong></span>
+          <span class="profile-chip">الموبايل: <strong id="profilePhone">غير مسجل</strong></span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-head">
+        <h2>اختر القسم المناسب</h2>
+        <p>اضغط على أي قسم لتنتقل مباشرة إلى خدماته الفرعية، أو استخدم زر الطلب السريع الموجود داخل كل خدمة.</p>
+      </div>
+
+      <div class="categories-grid" id="categoriesGrid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head">
+        <h2>الخدمات الفرعية</h2>
+        <p>كل خدمة هنا مرتبطة بنموذج طلب خاص بها، بحيث يصل الأدمن طلب واضح للبند الذي اخترته فقط.</p>
+      </div>
+
+      <div class="service-sections" id="serviceSections"></div>
+    </div>
+  </section>
+</main>
+
+<a href="whatsapp-numbers.html" class="whatsapp-btn" aria-label="تواصل واتساب">💬</a>
+
+<footer>© 2026 جميع الحقوق محفوظة - راحتي في مصر</footer>
+
+<script>
+const PROFILE_KEY = "rahaty-profile";
+const CART_KEY = "rahaty-cart";
+const ADMIN_WHATSAPP_NUMBER = "201005447147";
+
+const SERVICE_CATALOG = [
+  {
+    id: "home",
+    icon: "🏡",
+    title: "الخدمات المنزلية",
+    description: "خدمات يومية ومنزلية مرتبة داخل البيت أو الفيلا.",
+    page: "medical.html",
+    tags: ["شيف", "نجار", "سباك", "كهربائي", "جنيني", "عاملات منازل"],
+    items: [
+      { id: "chef", title: "شيف منزلي", price: 180, description: "تحضير وجبات يومية أو خاصة داخل المنزل بشكل منظم وراقي." },
+      { id: "carpenter", title: "نجار", price: 140, description: "أعمال خشب وتشطيب وصيانة منزلية سريعة ومرتبة." },
+      { id: "plumber", title: "سباك", price: 120, description: "إصلاحات السباكة المنزلية وتركيب وصيانة الخلاطات والأدوات." },
+      { id: "electrician", title: "كهربائي", price: 130, description: "صيانة الأعطال الكهربائية والإضاءة والتركيبات المنزلية." },
+      { id: "gardener", title: "جنيني", price: 170, description: "تنسيق الحدائق والعناية بالنباتات والمساحات الخارجية." },
+      { id: "housekeeping", title: "عاملات منازل", price: 160, description: "تنظيف وترتيب وتجهيز المنزل أو الشقة قبل الوصول أو بعده." }
+    ]
+  },
+  {
+    id: "delivery",
+    icon: "🚗",
+    title: "التوصيل والسائقين",
+    description: "سائقين وخدمات توصيل بحسب احتياجك اليومي.",
+    tags: ["سيارة العميل", "سيارة خاصة", "توصيل طلبات"],
+    items: [
+      { id: "driver-client-car", title: "سواق خاص على سيارة العميل", price: 220, description: "سائق يقود سيارة العميل لمشاوير خاصة أو يوم كامل." },
+      { id: "driver-with-car", title: "سواق خاص بسيارة", price: 320, description: "سائق مع سيارة خاصة للتنقل المريح داخل المدينة." },
+      { id: "delivery-orders", title: "توصيل طلبات", price: 110, description: "توصيل مشتريات وأغراض ومستلزمات داخل نفس المدينة أو المناطق القريبة." }
+    ]
+  },
+  {
+    id: "shopping",
+    icon: "🛍️",
+    title: "التسوق والمرافقة",
+    description: "تسهيل التسوق اليومي أو التسوق الشخصي بمرافقة مناسبة.",
+    tags: ["سوبر ماركت", "اختيار الملابس"],
+    items: [
+      { id: "supermarket", title: "تسوق سوبر ماركت", price: 90, description: "شراء احتياجات السوبر ماركت وتجهيز الطلبات اليومية بسرعة." },
+      { id: "styling-help", title: "مساعدة في اختيار الملابس", price: 200, description: "مرافقة أو ترشيحات تساعدك في اختيار الملابس والمقاسات والستايل المناسب." }
+    ]
+  },
+  {
+    id: "realestate",
+    icon: "🏢",
+    title: "العقارات",
+    description: "الانتقال إلى صفحة العقارات أو طلب خدمة عقارية محددة مباشرة.",
+    page: "realestate.html",
+    tags: ["شراء", "تأجير", "معاينات"],
+    items: [
+      { id: "property-rent", title: "تأجير شقة أو فيلا", price: 300, description: "مساعدة في الوصول إلى خيارات إيجار مناسبة للمنطقة والميزانية." },
+      { id: "property-buy", title: "شراء عقار", price: 350, description: "تنسيق مبدئي لطلب شراء عقار أو شقة أو فيلا داخل مصر." },
+      { id: "property-viewing", title: "تنسيق معاينة عقارية", price: 250, description: "ترتيب ومتابعة طلبات المعاينة وجمع التفاصيل الأساسية مسبقًا." }
+    ]
+  },
+  {
+    id: "technology",
+    icon: "💻",
+    title: "التكنولوجيا",
+    description: "الانتقال إلى صفحة التكنولوجيا أو اختيار خدمة تقنية مباشرة.",
+    page: "technology.html",
+    tags: ["صيانة", "شبكات", "شراء أجهزة"],
+    items: [
+      { id: "tech-support", title: "دعم وصيانة أجهزة", price: 210, description: "مساعدة في أعطال الهواتف والكمبيوتر والإعدادات الأساسية." },
+      { id: "wifi-setup", title: "إعداد إنترنت وشبكات", price: 170, description: "ضبط الراوتر وتحسين التغطية وإعداد الشبكات المنزلية." },
+      { id: "device-purchase", title: "مساعدة في شراء جهاز", price: 190, description: "ترشيح ومتابعة شراء أجهزة أو ملحقات تقنية مناسبة لاحتياجك." }
+    ]
+  }
+];
+
+function getProfile() {
+  try {
+    return JSON.parse(localStorage.getItem(PROFILE_KEY) || "{}");
+  } catch {
+    return {};
+  }
+}
+
+function saveProfile(profile) {
+  localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+}
+
+function getCart() {
+  try {
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+    return Array.isArray(cart) ? cart : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+
+function setWelcomeStatus(message = "", type = "") {
+  const element = document.getElementById("welcomeStatus");
+  element.textContent = message;
+  element.className = "status" + (type ? " " + type : "");
+}
+
+function updateProfileUI() {
+  const profile = getProfile();
+  document.getElementById("profileName").textContent = profile.name || "غير مسجل";
+  document.getElementById("profilePhone").textContent = profile.phone || "غير مسجل";
+}
+
+function openWelcomeModal(prefill = false) {
+  const modal = document.getElementById("welcomeModal");
+  const profile = getProfile();
+
+  if (prefill) {
+    document.getElementById("welcomeName").value = profile.name || "";
+    document.getElementById("welcomePhone").value = profile.phone || "";
+  }
+
+  modal.classList.add("is-open");
+  document.body.classList.add("modal-open");
+}
+
+function closeWelcomeModal() {
+  document.getElementById("welcomeModal").classList.remove("is-open");
+  document.body.classList.remove("modal-open");
+  setWelcomeStatus("");
+}
+
+function scrollToCategories() {
+  document.getElementById("categories").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function serviceOrderUrl(categoryId, serviceId) {
+  return `order.html?category=${encodeURIComponent(categoryId)}&service=${encodeURIComponent(serviceId)}`;
+}
+
+function cartItemKey(categoryId, serviceId) {
+  return `${categoryId}:${serviceId}`;
+}
+
+function findService(categoryId, serviceId) {
+  const category = SERVICE_CATALOG.find((item) => item.id === categoryId);
+  if (!category) return null;
+  const service = category.items.find((item) => item.id === serviceId);
+  if (!service) return null;
+  return { category, service };
+}
+
+function setCartStatus(message, type = "") {
+  const element = document.getElementById("cartStatus");
+  if (!element) return;
+  element.textContent = message;
+  element.style.color = type === "success" ? "#33d77a" : type === "error" ? "#ff7d7d" : "";
+}
+
+function renderCart() {
+  const cart = getCart()
+    .map(({ categoryId, serviceId }) => findService(categoryId, serviceId))
+    .filter(Boolean);
+
+  const itemsContainer = document.getElementById("cartItems");
+  const count = cart.length;
+  const total = cart.reduce((sum, entry) => sum + entry.service.price, 0);
+
+  document.getElementById("cartCount").textContent = count;
+  document.getElementById("cartSummaryCount").textContent = count;
+  document.getElementById("cartSummaryTotal").textContent = `${total} جنيه`;
+
+  if (!count) {
+    itemsContainer.innerHTML = `<div class="cart-empty">الـ Cart فاضي حاليًا. استخدم زر <strong>Add to Cart</strong> جنب أي خدمة علشان تجمع أكثر من طلب مع بعض.</div>`;
+  } else {
+    itemsContainer.innerHTML = cart.map(({ category, service }) => `
+      <article class="cart-item">
+        <div>
+          <strong>${service.title}</strong>
+          <small>${category.title}</small>
+          <small>${service.description}</small>
+        </div>
+        <div class="cart-item-meta">
+          <span class="cart-item-price">${service.price} جنيه</span>
+          <div class="card-actions">
+            <a class="btn btn-secondary" href="${serviceOrderUrl(category.id, service.id)}">اعمل أوردر</a>
+            <button type="button" class="btn btn-remove" onclick="removeFromCart('${category.id}', '${service.id}')">حذف</button>
+          </div>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  document.querySelectorAll("[data-cart-key]").forEach((button) => {
+    const isAdded = cart.some(({ category, service }) => button.dataset.cartKey === cartItemKey(category.id, service.id));
+    button.classList.toggle("is-added", isAdded);
+    button.textContent = isAdded ? "Added" : "Add to Cart";
+  });
+}
+
+function addToCart(categoryId, serviceId) {
+  const currentCart = getCart();
+  const exists = currentCart.some((item) => item.categoryId === categoryId && item.serviceId === serviceId);
+
+  if (exists) {
+    setCartStatus("الخدمة موجودة بالفعل داخل الـ Cart.", "success");
+    return;
+  }
+
+  currentCart.push({ categoryId, serviceId });
+  saveCart(currentCart);
+  renderCart();
+  setCartStatus("تمت إضافة الخدمة إلى الـ Cart.", "success");
+}
+
+function removeFromCart(categoryId, serviceId) {
+  const nextCart = getCart().filter((item) => !(item.categoryId === categoryId && item.serviceId === serviceId));
+  saveCart(nextCart);
+  renderCart();
+  setCartStatus("تم حذف الخدمة من الـ Cart.", "success");
+}
+
+function clearCart() {
+  saveCart([]);
+  renderCart();
+  setCartStatus("تم تفريغ الـ Cart.", "success");
+}
+
+function goToCartOrder() {
+  const profile = getProfile();
+  const cart = getCart()
+    .map(({ categoryId, serviceId }) => findService(categoryId, serviceId))
+    .filter(Boolean);
+
+  if (!cart.length) {
+    setCartStatus("أضف خدمة واحدة على الأقل قبل إرسال الـ Cart.", "error");
+    return;
+  }
+
+  if (!profile.name || !profile.phone) {
+    setCartStatus("اكتب الاسم والموبايل أولًا ثم أرسل الطلب.", "error");
+    openWelcomeModal(true);
+    return;
+  }
+
+  window.location.href = "order.html?cart=1";
+}
+
+function renderCategories() {
+  const categoriesGrid = document.getElementById("categoriesGrid");
+  const sections = document.getElementById("serviceSections");
+
+  categoriesGrid.innerHTML = SERVICE_CATALOG.map((category) => `
+    <article class="category-card">
+      <span class="category-icon">${category.icon}</span>
+      <h3>${category.title}</h3>
+      <p>${category.description}</p>
+      <div class="category-tags">
+        ${category.tags.map((tag) => `<span>${tag}</span>`).join("")}
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="#section-${category.id}">عرض الخدمات</a>
+        ${category.page ? `<a class="btn btn-secondary" href="${category.page}">فتح الصفحة</a>` : ""}
+      </div>
+    </article>
+  `).join("");
+
+  sections.innerHTML = SERVICE_CATALOG.map((category) => `
+    <section class="service-section" id="section-${category.id}">
+      <div class="service-section-head">
+        <div>
+          <h3>${category.title}</h3>
+          <p>${category.description}</p>
+        </div>
+        ${category.page ? `<a class="btn btn-secondary" href="${category.page}">فتح صفحة ${category.title}</a>` : ""}
+      </div>
+
+      <div class="service-grid">
+        ${category.items.map((item) => `
+          <article class="service-card">
+            <strong>${item.title}</strong>
+            <p>${item.description}</p>
+            <span class="service-price">رسوم الحجز المبدئية: ${item.price} جنيه</span>
+            <div class="card-actions">
+              <button type="button" class="btn btn-cart" data-cart-key="${cartItemKey(category.id, item.id)}" onclick="addToCart('${category.id}', '${item.id}')">Add to Cart</button>
+              <a class="btn btn-primary" href="${serviceOrderUrl(category.id, item.id)}">اعمل أوردر</a>
+            </div>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `).join("");
+}
+
+document.getElementById("welcomeForm").addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const name = document.getElementById("welcomeName").value.trim();
+  const phone = document.getElementById("welcomePhone").value.trim();
+
+  if (!name || !phone) {
+    setWelcomeStatus("اكتب الاسم ورقم الموبايل أولًا.", "error");
+    return;
+  }
+
+  saveProfile({ name, phone });
+  updateProfileUI();
+  closeWelcomeModal();
+  scrollToCategories();
+});
+
+renderCategories();
+renderCart();
+updateProfileUI();
+
+document.getElementById("sendCartBtn").addEventListener("click", goToCartOrder);
+document.getElementById("clearCartBtn").addEventListener("click", clearCart);
+
+const initialProfile = getProfile();
+if (!initialProfile.name || !initialProfile.phone) {
+  openWelcomeModal(true);
+}
+</script>
+</body>
+</html>

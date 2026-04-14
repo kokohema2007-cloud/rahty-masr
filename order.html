@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="صفحة طلب مخصصة للخدمة المختارة من راحتي في مصر مع دفع InstaPay ورسالة واتساب جاهزة.">
+<title>اعمل أوردر - راحتي في مصر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #090909;
+  --surface: rgba(18, 18, 18, 0.94);
+  --surface-2: rgba(25, 25, 25, 0.94);
+  --border: rgba(212, 175, 55, 0.18);
+  --text: #f6f0dd;
+  --muted: #c7b98c;
+  --gold: #d4af37;
+  --gold-strong: #f1ca5a;
+  --green: #25d366;
+  --danger: #ff7d7d;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.34);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Cairo", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(212, 175, 55, 0.12), transparent 24%),
+    linear-gradient(180deg, #070707 0%, #0b0b0b 55%, #101010 100%);
+}
+
+a { color: inherit; }
+button, input, textarea, select { font: inherit; }
+.container { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(16px);
+  background: rgba(7, 7, 7, 0.88);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-inner {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold-strong);
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, rgba(212, 175, 55, 0.28), rgba(212, 175, 55, 0.08));
+  border: 1px solid rgba(212, 175, 55, 0.28);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--gold-strong);
+}
+
+.hero {
+  padding: 62px 0 28px;
+}
+
+.hero-panel {
+  border-radius: 30px;
+  padding: 30px;
+  background:
+    linear-gradient(120deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.02)),
+    linear-gradient(180deg, rgba(18, 18, 18, 0.96), rgba(12, 12, 12, 0.96));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--gold-strong);
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.2;
+}
+
+.hero p {
+  margin: 16px 0 0;
+  color: var(--muted);
+  line-height: 1.9;
+  max-width: 760px;
+}
+
+.order-section {
+  padding: 18px 0 82px;
+}
+
+.order-layout {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.panel,
+.summary-card {
+  border-radius: 28px;
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 26px;
+}
+
+.panel h2,
+.summary-card h2 {
+  margin: 0 0 10px;
+}
+
+.helper {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.service-badge {
+  margin-top: 18px;
+  border-radius: 22px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.service-badge strong {
+  display: block;
+  color: var(--gold-strong);
+  font-size: 1.14rem;
+  margin-bottom: 8px;
+}
+
+.service-badge p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.service-fee {
+  display: inline-block;
+  margin-top: 14px;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.service-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.service-list li {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.service-list strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.service-list span {
+  display: block;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #191919;
+  color: white;
+  outline: none;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: rgba(212, 175, 55, 0.7);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.14);
+}
+
+.payment-box {
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.payment-box h3 {
+  margin: 0 0 10px;
+  color: var(--gold-strong);
+}
+
+.payment-box p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.payment-card {
+  padding: 16px;
+  border-radius: 18px;
+  background: #171717;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.payment-card strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.payment-card span {
+  display: block;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.mini-actions,
+.actions,
+.receipt-reminder-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mini-actions {
+  margin-top: 14px;
+}
+
+.mini-btn,
+.btn {
+  border-radius: 14px;
+  padding: 12px 18px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 800;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mini-btn:hover,
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.mini-btn {
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--text);
+}
+
+.btn {
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(145deg, var(--gold-strong), #a87b11);
+  color: #111;
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.22);
+}
+
+.btn-secondary {
+  background: #1c1c1c;
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.actions {
+  margin-top: 18px;
+}
+
+.upload-note,
+.note {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+
+.status {
+  min-height: 24px;
+  margin-top: 14px;
+  font-size: 0.95rem;
+}
+
+.status.error { color: var(--danger); }
+.status.success { color: var(--green); }
+
+.success-banner {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(680px, calc(100% - 32px));
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(37, 211, 102, 0.2), rgba(20, 90, 48, 0.92));
+  border: 1px solid rgba(84, 228, 138, 0.42);
+  color: #effaf3;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+  z-index: 80;
+  display: none;
+}
+
+.success-banner.is-visible {
+  display: block;
+}
+
+.success-banner strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.success-banner p {
+  margin: 0;
+  color: #ddf7e6;
+  line-height: 1.7;
+}
+
+.receipt-reminder {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.62);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 120;
+  padding: 20px;
+}
+
+.receipt-reminder.is-visible {
+  display: flex;
+}
+
+.receipt-reminder-card {
+  width: min(560px, 100%);
+  border-radius: 24px;
+  padding: 24px;
+  background: linear-gradient(180deg, rgba(18, 18, 18, 0.98), rgba(12, 12, 12, 0.98));
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+  text-align: center;
+}
+
+.receipt-reminder-card h3 {
+  margin: 0 0 10px;
+  color: var(--gold-strong);
+}
+
+.receipt-reminder-card p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.9;
+}
+
+.summary-card {
+  position: sticky;
+  top: 96px;
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.summary-row:last-of-type { border-bottom: 0; }
+
+.summary-row.total {
+  font-weight: 800;
+  color: var(--gold-strong);
+  font-size: 1.08rem;
+}
+
+.whatsapp-btn {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green);
+  color: white;
+  text-decoration: none;
+  font-size: 1.8rem;
+  box-shadow: 0 14px 30px rgba(37, 211, 102, 0.28);
+}
+
+.whatsapp-btn:hover { transform: scale(1.08); }
+
+footer {
+  text-align: center;
+  padding: 24px 16px 34px;
+  color: #9e936e;
+}
+
+@media (max-width: 900px) {
+  .topbar-inner {
+    flex-direction: column;
+    padding-block: 14px;
+  }
+
+  .order-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .container { width: min(100% - 22px, 100%); }
+  .hero-panel,
+  .panel,
+  .summary-card,
+  .receipt-reminder-card { padding: 22px; }
+  .fields-grid { grid-template-columns: 1fr; }
+  .nav-links { justify-content: center; gap: 14px; font-size: 0.95rem; }
+}
+</style>
+</head>
+<body>
+<div class="success-banner" id="successBanner" role="status" aria-live="polite">
+  <strong>شكرًا لك، تم تسجيل طلبك بنجاح.</strong>
+  <p>سيتم مراجعة الطلب والتواصل معك من الإدارة في أقرب وقت.</p>
+</div>
+
+<div class="receipt-reminder" id="receiptReminder" role="alertdialog" aria-live="assertive" aria-modal="true">
+  <div class="receipt-reminder-card">
+    <h3>تأكيد مهم قبل الإرسال</h3>
+    <p>متنساش تبعت إيصال التحويل، من غيره الأوردر مش هيكون متأكد. بعد ما تضغط على الزر، هيفتح واتساب برسالة الطلب.</p>
+    <div class="receipt-reminder-actions" style="justify-content:center; margin-top:18px;">
+      <button type="button" class="btn btn-primary" id="confirmSendOrderBtn">إرسال الأوردر</button>
+      <button type="button" class="btn btn-secondary" onclick="closeReceiptReminder()">رجوع</button>
+    </div>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">✦</span>
+      <span>راحتي في مصر</span>
+    </a>
+
+    <nav class="nav-links" aria-label="التنقل الرئيسي">
+      <a href="index.html">الرئيسية</a>
+      <a href="medical.html">الخدمات المنزلية</a>
+      <a href="realestate.html">العقارات</a>
+      <a href="technology.html">التكنولوجيا</a>
+      <a href="order.html" class="active">اعمل أوردر</a>
+      <a href="whatsapp-numbers.html">واتساب</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-panel">
+        <span class="eyebrow" id="serviceCategoryBadge">أوردر مخصص</span>
+        <h1 id="serviceTitle">اختر الخدمة المناسبة ثم أكمل الطلب</h1>
+        <p id="serviceDescription">هذه الصفحة تتغير بحسب الخدمة التي اخترتها من الصفحة الرئيسية حتى يصل الطلب بشكل واضح ومخصص للأدمن.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="order-section">
+    <div class="container order-layout">
+      <section class="panel">
+        <h2>تفاصيل الطلب</h2>
+        <p class="helper">النموذج هنا مخصص للخدمة المختارة فقط. أضف بياناتك ووقت التنفيذ والملاحظات، ثم ارفع إيصال التحويل وأرسل الطلب عبر واتساب.</p>
+
+        <div class="service-badge" id="selectedServiceBadge"></div>
+
+        <div class="fields-grid">
+          <div class="field">
+            <label for="customerName">الاسم</label>
+            <input type="text" id="customerName" placeholder="اكتب اسمك">
+          </div>
+
+          <div class="field">
+            <label for="customerPhone">رقم التواصل</label>
+            <input type="tel" id="customerPhone" placeholder="010xxxxxxxx">
+          </div>
+
+          <div class="field">
+            <label for="customerArea">المنطقة</label>
+            <input type="text" id="customerArea" placeholder="مثلاً: القاهرة الجديدة">
+          </div>
+
+          <div class="field">
+            <label for="preferredTime">الوقت المفضل</label>
+            <input type="text" id="preferredTime" placeholder="مثلاً: اليوم مساءً أو غدًا 3 عصرًا">
+          </div>
+
+          <div class="field field-full">
+            <label for="notes">تفاصيل إضافية</label>
+            <textarea id="notes" rows="5" placeholder="اكتب أي تفاصيل مهمة تساعد الإدارة في تجهيز الطلب بشكل أدق"></textarea>
+          </div>
+        </div>
+
+        <section class="payment-box" aria-labelledby="paymentTitle">
+          <h3 id="paymentTitle">الدفع عبر InstaPay</h3>
+          <p>حوّل رسوم الحجز المبدئية عبر إنستا باي، ثم ارفع صورة الإيصال أو لقطة شاشة التحويل قبل إرسال الطلب.</p>
+
+          <div class="payment-grid">
+            <div class="payment-card">
+              <strong>رقم الموبايل</strong>
+              <span>01205030765</span>
+            </div>
+            <div class="payment-card">
+              <strong>عنوان الدفع اللحظي IPA</strong>
+              <span>carlosibrahim@instapay</span>
+            </div>
+          </div>
+
+          <div class="mini-actions">
+            <button type="button" class="mini-btn" onclick="copyPaymentValue('01205030765', 'تم نسخ رقم InstaPay.')">نسخ الرقم</button>
+            <button type="button" class="mini-btn" onclick="copyPaymentValue('carlosibrahim@instapay', 'تم نسخ عنوان InstaPay.')">نسخ عنوان الدفع</button>
+            <a class="mini-btn" href="instapay://" onclick="openInstaPay(event)">فتح InstaPay مباشرة</a>
+          </div>
+
+          <div class="field">
+            <label for="paymentReceipt">ارفع صورة الإيصال أو Screenshot التحويل</label>
+            <input type="file" id="paymentReceipt" accept="image/*,.pdf">
+            <p class="upload-note" id="paymentReceiptNote">لم يتم اختيار ملف بعد.</p>
+          </div>
+        </section>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" onclick="sendOrder()">إرسال الطلب للأدمن</button>
+          <a class="btn btn-secondary" href="index.html#services">العودة للخدمات</a>
+        </div>
+
+        <div class="status" id="orderStatus"></div>
+      </section>
+
+      <aside class="summary-card">
+        <h2>ملخص الطلب</h2>
+
+        <div class="summary-row">
+          <span>القسم</span>
+          <span id="summaryCategory">غير محدد</span>
+        </div>
+
+        <div class="summary-row">
+          <span>الخدمة المختارة</span>
+          <span id="summaryService">غير محددة</span>
+        </div>
+
+        <div class="summary-row">
+          <span>رسوم الحجز</span>
+          <span id="summaryPrice">0 جنيه</span>
+        </div>
+
+        <div class="summary-row total">
+          <span>المبلغ المطلوب تحويله</span>
+          <span id="summaryTotal">0 جنيه</span>
+        </div>
+
+        <p class="note">بعد الضغط على زر الإرسال سيُفتح واتساب برسالة جاهزة تخص هذه الخدمة فقط، مع اسمك ورقمك والمنطقة والتفاصيل التي كتبتها.</p>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<a href="whatsapp-numbers.html" class="whatsapp-btn" aria-label="تواصل واتساب">💬</a>
+
+<footer>© 2026 جميع الحقوق محفوظة - راحتي في مصر</footer>
+
+<script>
+const PROFILE_KEY = "rahaty-profile";
+const CART_KEY = "rahaty-cart";
+const ORDER_SUCCESS_KEY = "rahaty-order-success";
+const ADMIN_WHATSAPP_NUMBER = "201005447147";
+const INSTAPAY_PHONE = "01205030765";
+const INSTAPAY_ALIAS = "carlosibrahim@instapay";
+let pendingOrderMessage = "";
+
+const SERVICE_CATALOG = [
+  {
+    id: "home",
+    title: "الخدمات المنزلية",
+    items: [
+      { id: "chef", title: "شيف منزلي", price: 180, description: "تحضير وجبات يومية أو خاصة داخل المنزل بشكل منظم وراقي." },
+      { id: "carpenter", title: "نجار", price: 140, description: "أعمال خشب وتشطيب وصيانة منزلية سريعة ومرتبة." },
+      { id: "plumber", title: "سباك", price: 120, description: "إصلاحات السباكة المنزلية وتركيب وصيانة الخلاطات والأدوات." },
+      { id: "electrician", title: "كهربائي", price: 130, description: "صيانة الأعطال الكهربائية والإضاءة والتركيبات المنزلية." },
+      { id: "gardener", title: "جنيني", price: 170, description: "تنسيق الحدائق والعناية بالنباتات والمساحات الخارجية." },
+      { id: "housekeeping", title: "عاملات منازل", price: 160, description: "تنظيف وترتيب وتجهيز المنزل أو الشقة قبل الوصول أو بعده." }
+    ]
+  },
+  {
+    id: "delivery",
+    title: "التوصيل والسائقين",
+    items: [
+      { id: "driver-client-car", title: "سواق خاص على سيارة العميل", price: 220, description: "سائق يقود سيارة العميل لمشاوير خاصة أو يوم كامل." },
+      { id: "driver-with-car", title: "سواق خاص بسيارة", price: 320, description: "سائق مع سيارة خاصة للتنقل المريح داخل المدينة." },
+      { id: "delivery-orders", title: "توصيل طلبات", price: 110, description: "توصيل مشتريات وأغراض ومستلزمات داخل نفس المدينة أو المناطق القريبة." }
+    ]
+  },
+  {
+    id: "shopping",
+    title: "التسوق والمرافقة",
+    items: [
+      { id: "supermarket", title: "تسوق سوبر ماركت", price: 90, description: "شراء احتياجات السوبر ماركت وتجهيز الطلبات اليومية بسرعة." },
+      { id: "styling-help", title: "مساعدة في اختيار الملابس", price: 200, description: "مرافقة أو ترشيحات تساعدك في اختيار الملابس والمقاسات والستايل المناسب." }
+    ]
+  },
+  {
+    id: "realestate",
+    title: "العقارات",
+    items: [
+      { id: "property-rent", title: "تأجير شقة أو فيلا", price: 300, description: "مساعدة في الوصول إلى خيارات إيجار مناسبة للمنطقة والميزانية." },
+      { id: "property-buy", title: "شراء عقار", price: 350, description: "تنسيق مبدئي لطلب شراء عقار أو شقة أو فيلا داخل مصر." },
+      { id: "property-viewing", title: "تنسيق معاينة عقارية", price: 250, description: "ترتيب ومتابعة طلبات المعاينة وجمع التفاصيل الأساسية مسبقًا." }
+    ]
+  },
+  {
+    id: "technology",
+    title: "التكنولوجيا",
+    items: [
+      { id: "tech-support", title: "دعم وصيانة أجهزة", price: 210, description: "مساعدة في أعطال الهواتف والكمبيوتر والإعدادات الأساسية." },
+      { id: "wifi-setup", title: "إعداد إنترنت وشبكات", price: 170, description: "ضبط الراوتر وتحسين التغطية وإعداد الشبكات المنزلية." },
+      { id: "device-purchase", title: "مساعدة في شراء جهاز", price: 190, description: "ترشيح ومتابعة شراء أجهزة أو ملحقات تقنية مناسبة لاحتياجك." }
+    ]
+  }
+];
+
+function getProfile() {
+  try {
+    return JSON.parse(localStorage.getItem(PROFILE_KEY) || "{}");
+  } catch {
+    return {};
+  }
+}
+
+function getCart() {
+  try {
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+    return Array.isArray(cart) ? cart : [];
+  } catch {
+    return [];
+  }
+}
+
+function resetCart() {
+  localStorage.setItem(CART_KEY, JSON.stringify([]));
+}
+
+function findService(categoryId, serviceId) {
+  const category = SERVICE_CATALOG.find((item) => item.id === categoryId);
+  if (!category) return null;
+  const service = category.items.find((item) => item.id === serviceId);
+  if (!service) return null;
+  return { category, service };
+}
+
+function findSelectedService() {
+  const params = new URLSearchParams(window.location.search);
+  const isCartMode = params.get("cart") === "1";
+
+  if (isCartMode) {
+    const items = getCart()
+      .map(({ categoryId, serviceId }) => findService(categoryId, serviceId))
+      .filter(Boolean);
+
+    if (items.length) {
+      return { mode: "cart", items };
+    }
+  }
+
+  const categoryId = params.get("category");
+  const serviceId = params.get("service");
+  const category = SERVICE_CATALOG.find((item) => item.id === categoryId) || SERVICE_CATALOG[0];
+  const service = category.items.find((item) => item.id === serviceId) || category.items[0];
+  return { mode: "single", items: [{ category, service }] };
+}
+
+function setStatus(message = "", type = "") {
+  const status = document.getElementById("orderStatus");
+  status.textContent = message;
+  status.className = "status" + (type ? " " + type : "");
+}
+
+function showSuccessBanner() {
+  const banner = document.getElementById("successBanner");
+  banner.classList.add("is-visible");
+  window.setTimeout(() => {
+    banner.classList.remove("is-visible");
+  }, 9000);
+}
+
+function markOrderAsSubmitted() {
+  localStorage.setItem(ORDER_SUCCESS_KEY, "1");
+}
+
+function restoreSuccessBannerIfNeeded() {
+  if (localStorage.getItem(ORDER_SUCCESS_KEY) === "1") {
+    localStorage.removeItem(ORDER_SUCCESS_KEY);
+    showSuccessBanner();
+  }
+}
+
+function updateReceiptNote() {
+  const receiptInput = document.getElementById("paymentReceipt");
+  const note = document.getElementById("paymentReceiptNote");
+  const file = receiptInput.files && receiptInput.files[0];
+  note.textContent = file ? `تم اختيار الملف: ${file.name}` : "لم يتم اختيار ملف بعد.";
+}
+
+function copyPaymentValue(value, successMessage) {
+  if (!navigator.clipboard) {
+    setStatus(`انسخ يدويًا: ${value}`, "success");
+    return;
+  }
+
+  navigator.clipboard.writeText(value)
+    .then(() => setStatus(successMessage, "success"))
+    .catch(() => setStatus(`انسخ يدويًا: ${value}`, "success"));
+}
+
+function openInstaPay(event) {
+  event.preventDefault();
+  copyPaymentValue(INSTAPAY_ALIAS, "تم نسخ عنوان InstaPay ومحاولة فتح التطبيق.");
+  window.location.href = "instapay://";
+  window.setTimeout(() => {
+    window.open("https://www.instapay.eg/", "_blank", "noopener");
+  }, 1200);
+}
+
+function showReceiptReminder() {
+  document.getElementById("receiptReminder").classList.add("is-visible");
+}
+
+function closeReceiptReminder() {
+  document.getElementById("receiptReminder").classList.remove("is-visible");
+  pendingOrderMessage = "";
+}
+
+function confirmSendOrder() {
+  if (!pendingOrderMessage) {
+    closeReceiptReminder();
+    return;
+  }
+
+  const message = pendingOrderMessage;
+  closeReceiptReminder();
+  markOrderAsSubmitted();
+  if (selected.mode === "cart") {
+    resetCart();
+  }
+  setStatus("جارٍ فتح واتساب برسالة الطلب...", "success");
+  window.open(`https://wa.me/${ADMIN_WHATSAPP_NUMBER}?text=${message}`, "_blank");
+}
+
+const selected = findSelectedService();
+
+function renderSelectedService() {
+  const total = selected.items.reduce((sum, item) => sum + item.service.price, 0);
+
+  if (selected.mode === "cart") {
+    document.getElementById("serviceCategoryBadge").textContent = "أوردر مجمع";
+    document.getElementById("serviceTitle").textContent = "أكمل الطلب للخدمات الموجودة في الـ Cart";
+    document.getElementById("serviceDescription").textContent = "راجع الخدمات المختارة، ثم حوّل إجمالي رسوم الحجز عبر InstaPay وارفع الإيصال قبل إرسال الطلب النهائي.";
+    document.querySelector(".helper").textContent = "النموذج هنا مخصص للطلب المجمع. أضف بياناتك ووقت التنفيذ والملاحظات، ثم ارفع الإيصال وأرسل كل الخدمات في رسالة واحدة.";
+    document.querySelector(".note").textContent = "بعد الضغط على زر الإرسال سيُفتح واتساب برسالة جاهزة تشمل كل الخدمات المختارة مع بياناتك وإجمالي رسوم الحجز.";
+
+    document.getElementById("selectedServiceBadge").innerHTML = `
+      <strong>الخدمات المختارة (${selected.items.length})</strong>
+      <ul class="service-list">
+        ${selected.items.map(({ category, service }) => `
+          <li>
+            <strong>${service.title}</strong>
+            <span>${category.title}</span>
+            <span>${service.description}</span>
+            <span class="service-fee">رسوم الحجز المبدئية: ${service.price} جنيه</span>
+          </li>
+        `).join("")}
+      </ul>
+    `;
+
+    document.getElementById("summaryCategory").textContent = "أكثر من قسم";
+    document.getElementById("summaryService").textContent = `${selected.items.length} خدمات`;
+    document.getElementById("summaryPrice").textContent = `${total} جنيه`;
+    document.getElementById("summaryTotal").textContent = `${total} جنيه`;
+    return;
+  }
+
+  const item = selected.items[0];
+  document.getElementById("serviceCategoryBadge").textContent = item.category.title;
+  document.getElementById("serviceTitle").textContent = `أوردر مخصص لخدمة ${item.service.title}`;
+  document.getElementById("serviceDescription").textContent = item.service.description;
+
+  document.getElementById("selectedServiceBadge").innerHTML = `
+    <strong>${item.service.title}</strong>
+    <p>${item.service.description}</p>
+    <span class="service-fee">رسوم الحجز المبدئية: ${item.service.price} جنيه</span>
+  `;
+
+  document.getElementById("summaryCategory").textContent = item.category.title;
+  document.getElementById("summaryService").textContent = item.service.title;
+  document.getElementById("summaryPrice").textContent = `${item.service.price} جنيه`;
+  document.getElementById("summaryTotal").textContent = `${item.service.price} جنيه`;
+}
+
+function prefillProfile() {
+  const profile = getProfile();
+  if (profile.name) {
+    document.getElementById("customerName").value = profile.name;
+  }
+  if (profile.phone) {
+    document.getElementById("customerPhone").value = profile.phone;
+  }
+}
+
+function buildOrderMessage() {
+  const customerName = document.getElementById("customerName").value.trim();
+  const customerPhone = document.getElementById("customerPhone").value.trim();
+  const customerArea = document.getElementById("customerArea").value.trim();
+  const preferredTime = document.getElementById("preferredTime").value.trim();
+  const notes = document.getElementById("notes").value.trim();
+  const receiptFile = document.getElementById("paymentReceipt").files[0];
+  const orderId = "ORD-" + Date.now().toString().slice(-6);
+
+  if (!customerName || !customerPhone) {
+    setStatus("اكتب الاسم ورقم التواصل أولًا.", "error");
+    return null;
+  }
+
+  if (!receiptFile) {
+    setStatus("ارفع صورة الإيصال أو Screenshot التحويل قبل إرسال الطلب.", "error");
+    return null;
+  }
+
+  const total = selected.items.reduce((sum, item) => sum + item.service.price, 0);
+  const lines = [
+    "طلب جديد من راحتي في مصر",
+    `رقم الطلب: ${orderId}`,
+    `الاسم: ${customerName}`,
+    `رقم التواصل: ${customerPhone}`,
+    `المنطقة: ${customerArea || "غير محددة"}`,
+    `الوقت المفضل: ${preferredTime || "غير محدد"}`,
+    "طريقة الدفع: InstaPay",
+    `رقم InstaPay: ${INSTAPAY_PHONE}`,
+    `عنوان الدفع InstaPay: ${INSTAPAY_ALIAS}`,
+    `ملف الإيصال: ${receiptFile.name}`,
+    `تفاصيل إضافية: ${notes || "لا توجد تفاصيل إضافية"}`
+  ];
+
+  if (selected.mode === "cart") {
+    lines.splice(2, 0, "نوع الطلب: أوردر مجمع", `عدد الخدمات: ${selected.items.length}`, `إجمالي رسوم الحجز: ${total} جنيه`);
+    selected.items.forEach(({ category, service }, index) => {
+      lines.push(`الخدمة ${index + 1}: ${category.title} - ${service.title} - ${service.price} جنيه`);
+    });
+  } else {
+    const item = selected.items[0];
+    lines.splice(2, 0, `القسم: ${item.category.title}`, `الخدمة: ${item.service.title}`, `رسوم الحجز: ${item.service.price} جنيه`);
+  }
+
+  return encodeURIComponent(lines.join("\n"));
+}
+
+function sendOrder() {
+  const message = buildOrderMessage();
+  if (!message) {
+    return;
+  }
+
+  pendingOrderMessage = message;
+  showReceiptReminder();
+}
+
+renderSelectedService();
+prefillProfile();
+restoreSuccessBannerIfNeeded();
+updateReceiptNote();
+
+document.getElementById("paymentReceipt").addEventListener("change", updateReceiptNote);
+document.getElementById("confirmSendOrderBtn").addEventListener("click", confirmSendOrder);
+</script>
+</body>
+</html>

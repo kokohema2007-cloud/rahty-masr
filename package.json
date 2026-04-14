@@ -1,0 +1,12 @@
+{
+  "name": "rahaty-egypt",
+  "version": "1.0.0",
+  "description": "Firebase integration for Rahaty Egypt web app",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server ."
+  },
+  "keywords": ["firebase", "web"],
+  "author": "BLACKBOXAI",
+  "license": "ISC"
+}
