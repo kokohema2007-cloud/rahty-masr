@@ -218,13 +218,6 @@ a { color: inherit; }
   font-size: 0.96rem;
 }
 
-.card .price {
-  display: inline-block;
-  margin: 14px 0 12px;
-  color: var(--accent-strong);
-  font-weight: 800;
-}
-
 .card-actions {
   display: flex;
   gap: 10px;
@@ -389,7 +382,6 @@ footer {
           <span class="icon">📱</span>
           <h3>صيانة هواتف</h3>
           <p>مساعدة في أعطال الشاشات والبطاريات والإعدادات ونقل البيانات والتجهيز بعد الشراء.</p>
-          <span class="price">210 جنيه</span>
           <div class="card-actions">
             <button type="button" class="btn btn-cart" data-cart-key="technology:tech-support" onclick="addToCart('technology','tech-support')">Add to Cart</button>
             <a class="btn btn-primary" href="order.html?category=technology&service=tech-support">اعمل أوردر</a>
@@ -399,7 +391,6 @@ footer {
           <span class="icon">🖥️</span>
           <h3>أجهزة كمبيوتر</h3>
           <p>صيانة وتحديث وتجهيز استخدام يومي أو مكتبي مع ترتيب البرامج الأساسية.</p>
-          <span class="price">210 جنيه</span>
           <div class="card-actions">
             <button type="button" class="btn btn-cart" data-cart-key="technology:tech-support" onclick="addToCart('technology','tech-support')">Add to Cart</button>
             <a class="btn btn-primary" href="order.html?category=technology&service=tech-support">اعمل أوردر</a>
@@ -409,7 +400,6 @@ footer {
           <span class="icon">📶</span>
           <h3>إنترنت وشبكات</h3>
           <p>ضبط الراوتر وتحسين التغطية المنزلية وترتيب إعدادات الاتصال بشكل مناسب.</p>
-          <span class="price">170 جنيه</span>
           <div class="card-actions">
             <button type="button" class="btn btn-cart" data-cart-key="technology:wifi-setup" onclick="addToCart('technology','wifi-setup')">Add to Cart</button>
             <a class="btn btn-primary" href="order.html?category=technology&service=wifi-setup">اعمل أوردر</a>
@@ -419,7 +409,6 @@ footer {
           <span class="icon">🎮</span>
           <h3>ألعاب وإكسسوارات</h3>
           <p>مساعدة في اختيار وتجهيز الملحقات والأجهزة المرتبطة بالألعاب والاستخدام الترفيهي.</p>
-          <span class="price">190 جنيه</span>
           <div class="card-actions">
             <button type="button" class="btn btn-cart" data-cart-key="technology:device-purchase" onclick="addToCart('technology','device-purchase')">Add to Cart</button>
             <a class="btn btn-primary" href="order.html?category=technology&service=device-purchase">اعمل أوردر</a>
@@ -429,7 +418,6 @@ footer {
           <span class="icon">🛍️</span>
           <h3>شراء وتجهيز</h3>
           <p>لو محتاج ترشيحات أو متابعة لشراء جهاز أو ملحقات، يتم تنظيم الطلب وتحديد الاحتياج بدقة.</p>
-          <span class="price">190 جنيه</span>
           <div class="card-actions">
             <button type="button" class="btn btn-cart" data-cart-key="technology:device-purchase" onclick="addToCart('technology','device-purchase')">Add to Cart</button>
             <a class="btn btn-primary" href="order.html?category=technology&service=device-purchase">اعمل أوردر</a>
@@ -439,7 +427,6 @@ footer {
           <span class="icon">🏠</span>
           <h3>إعدادات منزلية ذكية</h3>
           <p>تنسيق أساسي للأجهزة المنزلية الذكية والتوصيلات والضبط الأولي بطريقة عملية.</p>
-          <span class="price">170 جنيه</span>
           <div class="card-actions">
             <button type="button" class="btn btn-cart" data-cart-key="technology:wifi-setup" onclick="addToCart('technology','wifi-setup')">Add to Cart</button>
             <a class="btn btn-primary" href="order.html?category=technology&service=wifi-setup">اعمل أوردر</a>
@@ -467,25 +454,9 @@ footer {
 
 <a href="whatsapp-numbers.html" class="whatsapp-btn" aria-label="تواصل واتساب">💬</a>
 
-<footer>© 2026 جميع الحقوق محفوظة - راحتي في مصر</footer>
+<footer>© 2026 جميع الحقوق محفوظة - راحتي في مصر | Developed by <a href="https://lnk.bio/Carlos_Ibrahim" target="_blank" rel="noopener noreferrer">Carlos Ibrahim</a></footer>
 <script>
-const PROFILE_KEY = "rahaty-profile";
 const CART_KEY = "rahaty-cart";
-const ADMIN_WHATSAPP_NUMBER = "201005447147";
-
-const SERVICE_MAP = {
-  "technology:tech-support": { category: "التكنولوجيا", title: "دعم وصيانة أجهزة", price: 210 },
-  "technology:wifi-setup": { category: "التكنولوجيا", title: "إعداد إنترنت وشبكات", price: 170 },
-  "technology:device-purchase": { category: "التكنولوجيا", title: "مساعدة في شراء جهاز", price: 190 }
-};
-
-function getProfile() {
-  try {
-    return JSON.parse(localStorage.getItem(PROFILE_KEY) || "{}");
-  } catch {
-    return {};
-  }
-}
 
 function getCart() {
   try {
@@ -533,16 +504,10 @@ function addToCart(categoryId, serviceId) {
 }
 
 function goToCartOrder() {
-  const profile = getProfile();
   const cart = getCart();
 
   if (!cart.length) {
     setCartStatus("أضف خدمة واحدة على الأقل أولًا.", "error");
-    return;
-  }
-
-  if (!profile.name || !profile.phone) {
-    setCartStatus("من فضلك سجّل الاسم والموبايل من الصفحة الرئيسية أولًا.", "error");
     return;
   }
 

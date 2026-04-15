@@ -320,13 +320,6 @@ button, input, textarea { font: inherit; }
   text-align: left;
 }
 
-.cart-item-price {
-  display: inline-block;
-  margin-bottom: 10px;
-  color: var(--gold-strong);
-  font-weight: 800;
-}
-
 .cart-summary {
   padding: 18px;
   border-radius: 24px;
@@ -346,12 +339,6 @@ button, input, textarea { font: inherit; }
 
 .cart-summary-row:last-of-type {
   border-bottom: 0;
-}
-
-.cart-summary-row.total {
-  color: var(--gold-strong);
-  font-weight: 800;
-  font-size: 1.04rem;
 }
 
 .cart-note {
@@ -523,13 +510,6 @@ button, input, textarea { font: inherit; }
   color: var(--muted);
   line-height: 1.8;
   min-height: 86px;
-}
-
-.service-price {
-  display: inline-block;
-  margin: 14px 0;
-  color: var(--gold-strong);
-  font-weight: 800;
 }
 
 .btn-cart {
@@ -761,10 +741,6 @@ footer {
               <span>عدد الخدمات</span>
               <strong id="cartSummaryCount">0</strong>
             </div>
-            <div class="cart-summary-row total">
-              <span>إجمالي رسوم الحجز</span>
-              <strong id="cartSummaryTotal">0 جنيه</strong>
-            </div>
             <div class="card-actions" style="margin-top: 18px;">
               <button type="button" class="btn btn-primary" id="sendCartBtn">متابعة الأوردر</button>
               <button type="button" class="btn btn-remove" id="clearCartBtn">تفريغ الـ Cart</button>
@@ -821,12 +797,11 @@ footer {
 
 <a href="whatsapp-numbers.html" class="whatsapp-btn" aria-label="تواصل واتساب">💬</a>
 
-<footer>© 2026 جميع الحقوق محفوظة - راحتي في مصر</footer>
+<footer>© 2026 جميع الحقوق محفوظة - راحتي في مصر | Developed by <a href="https://lnk.bio/Carlos_Ibrahim" target="_blank" rel="noopener noreferrer">Carlos Ibrahim</a></footer>
 
 <script>
 const PROFILE_KEY = "rahaty-profile";
 const CART_KEY = "rahaty-cart";
-const ADMIN_WHATSAPP_NUMBER = "201005447147";
 
 const SERVICE_CATALOG = [
   {
@@ -837,12 +812,12 @@ const SERVICE_CATALOG = [
     page: "medical.html",
     tags: ["شيف", "نجار", "سباك", "كهربائي", "جنيني", "عاملات منازل"],
     items: [
-      { id: "chef", title: "شيف منزلي", price: 180, description: "تحضير وجبات يومية أو خاصة داخل المنزل بشكل منظم وراقي." },
-      { id: "carpenter", title: "نجار", price: 140, description: "أعمال خشب وتشطيب وصيانة منزلية سريعة ومرتبة." },
-      { id: "plumber", title: "سباك", price: 120, description: "إصلاحات السباكة المنزلية وتركيب وصيانة الخلاطات والأدوات." },
-      { id: "electrician", title: "كهربائي", price: 130, description: "صيانة الأعطال الكهربائية والإضاءة والتركيبات المنزلية." },
-      { id: "gardener", title: "جنيني", price: 170, description: "تنسيق الحدائق والعناية بالنباتات والمساحات الخارجية." },
-      { id: "housekeeping", title: "عاملات منازل", price: 160, description: "تنظيف وترتيب وتجهيز المنزل أو الشقة قبل الوصول أو بعده." }
+      { id: "chef", title: "شيف منزلي", description: "تحضير وجبات يومية أو خاصة داخل المنزل بشكل منظم وراقي." },
+      { id: "carpenter", title: "نجار", description: "أعمال خشب وتشطيب وصيانة منزلية سريعة ومرتبة." },
+      { id: "plumber", title: "سباك", description: "إصلاحات السباكة المنزلية وتركيب وصيانة الخلاطات والأدوات." },
+      { id: "electrician", title: "كهربائي", description: "صيانة الأعطال الكهربائية والإضاءة والتركيبات المنزلية." },
+      { id: "gardener", title: "جنيني", description: "تنسيق الحدائق والعناية بالنباتات والمساحات الخارجية." },
+      { id: "housekeeping", title: "عاملات منازل", description: "تنظيف وترتيب وتجهيز المنزل أو الشقة قبل الوصول أو بعده." }
     ]
   },
   {
@@ -852,9 +827,9 @@ const SERVICE_CATALOG = [
     description: "سائقين وخدمات توصيل بحسب احتياجك اليومي.",
     tags: ["سيارة العميل", "سيارة خاصة", "توصيل طلبات"],
     items: [
-      { id: "driver-client-car", title: "سواق خاص على سيارة العميل", price: 220, description: "سائق يقود سيارة العميل لمشاوير خاصة أو يوم كامل." },
-      { id: "driver-with-car", title: "سواق خاص بسيارة", price: 320, description: "سائق مع سيارة خاصة للتنقل المريح داخل المدينة." },
-      { id: "delivery-orders", title: "توصيل طلبات", price: 110, description: "توصيل مشتريات وأغراض ومستلزمات داخل نفس المدينة أو المناطق القريبة." }
+      { id: "driver-client-car", title: "سواق خاص على سيارة العميل", description: "سائق يقود سيارة العميل لمشاوير خاصة أو يوم كامل." },
+      { id: "driver-with-car", title: "سواق خاص بسيارة", description: "سائق مع سيارة خاصة للتنقل المريح داخل المدينة." },
+      { id: "delivery-orders", title: "توصيل طلبات", description: "توصيل مشتريات وأغراض ومستلزمات داخل نفس المدينة أو المناطق القريبة." }
     ]
   },
   {
@@ -864,8 +839,8 @@ const SERVICE_CATALOG = [
     description: "تسهيل التسوق اليومي أو التسوق الشخصي بمرافقة مناسبة.",
     tags: ["سوبر ماركت", "اختيار الملابس"],
     items: [
-      { id: "supermarket", title: "تسوق سوبر ماركت", price: 90, description: "شراء احتياجات السوبر ماركت وتجهيز الطلبات اليومية بسرعة." },
-      { id: "styling-help", title: "مساعدة في اختيار الملابس", price: 200, description: "مرافقة أو ترشيحات تساعدك في اختيار الملابس والمقاسات والستايل المناسب." }
+      { id: "supermarket", title: "تسوق سوبر ماركت", description: "شراء احتياجات السوبر ماركت وتجهيز الطلبات اليومية بسرعة." },
+      { id: "styling-help", title: "مساعدة في اختيار الملابس", description: "مرافقة أو ترشيحات تساعدك في اختيار الملابس والمقاسات والستايل المناسب." }
     ]
   },
   {
@@ -876,9 +851,9 @@ const SERVICE_CATALOG = [
     page: "realestate.html",
     tags: ["شراء", "تأجير", "معاينات"],
     items: [
-      { id: "property-rent", title: "تأجير شقة أو فيلا", price: 300, description: "مساعدة في الوصول إلى خيارات إيجار مناسبة للمنطقة والميزانية." },
-      { id: "property-buy", title: "شراء عقار", price: 350, description: "تنسيق مبدئي لطلب شراء عقار أو شقة أو فيلا داخل مصر." },
-      { id: "property-viewing", title: "تنسيق معاينة عقارية", price: 250, description: "ترتيب ومتابعة طلبات المعاينة وجمع التفاصيل الأساسية مسبقًا." }
+      { id: "property-rent", title: "تأجير شقة أو فيلا", description: "مساعدة في الوصول إلى خيارات إيجار مناسبة للمنطقة والميزانية." },
+      { id: "property-buy", title: "شراء عقار", description: "تنسيق مبدئي لطلب شراء عقار أو شقة أو فيلا داخل مصر." },
+      { id: "property-viewing", title: "تنسيق معاينة عقارية", description: "ترتيب ومتابعة طلبات المعاينة وجمع التفاصيل الأساسية مسبقًا." }
     ]
   },
   {
@@ -889,9 +864,9 @@ const SERVICE_CATALOG = [
     page: "technology.html",
     tags: ["صيانة", "شبكات", "شراء أجهزة"],
     items: [
-      { id: "tech-support", title: "دعم وصيانة أجهزة", price: 210, description: "مساعدة في أعطال الهواتف والكمبيوتر والإعدادات الأساسية." },
-      { id: "wifi-setup", title: "إعداد إنترنت وشبكات", price: 170, description: "ضبط الراوتر وتحسين التغطية وإعداد الشبكات المنزلية." },
-      { id: "device-purchase", title: "مساعدة في شراء جهاز", price: 190, description: "ترشيح ومتابعة شراء أجهزة أو ملحقات تقنية مناسبة لاحتياجك." }
+      { id: "tech-support", title: "دعم وصيانة أجهزة", description: "مساعدة في أعطال الهواتف والكمبيوتر والإعدادات الأساسية." },
+      { id: "wifi-setup", title: "إعداد إنترنت وشبكات", description: "ضبط الراوتر وتحسين التغطية وإعداد الشبكات المنزلية." },
+      { id: "device-purchase", title: "مساعدة في شراء جهاز", description: "ترشيح ومتابعة شراء أجهزة أو ملحقات تقنية مناسبة لاحتياجك." }
     ]
   }
 ];
@@ -986,11 +961,8 @@ function renderCart() {
 
   const itemsContainer = document.getElementById("cartItems");
   const count = cart.length;
-  const total = cart.reduce((sum, entry) => sum + entry.service.price, 0);
-
   document.getElementById("cartCount").textContent = count;
   document.getElementById("cartSummaryCount").textContent = count;
-  document.getElementById("cartSummaryTotal").textContent = `${total} جنيه`;
 
   if (!count) {
     itemsContainer.innerHTML = `<div class="cart-empty">الـ Cart فاضي حاليًا. استخدم زر <strong>Add to Cart</strong> جنب أي خدمة علشان تجمع أكثر من طلب مع بعض.</div>`;
@@ -1003,7 +975,6 @@ function renderCart() {
           <small>${service.description}</small>
         </div>
         <div class="cart-item-meta">
-          <span class="cart-item-price">${service.price} جنيه</span>
           <div class="card-actions">
             <a class="btn btn-secondary" href="${serviceOrderUrl(category.id, service.id)}">اعمل أوردر</a>
             <button type="button" class="btn btn-remove" onclick="removeFromCart('${category.id}', '${service.id}')">حذف</button>
@@ -1049,19 +1020,12 @@ function clearCart() {
 }
 
 function goToCartOrder() {
-  const profile = getProfile();
   const cart = getCart()
     .map(({ categoryId, serviceId }) => findService(categoryId, serviceId))
     .filter(Boolean);
 
   if (!cart.length) {
     setCartStatus("أضف خدمة واحدة على الأقل قبل إرسال الـ Cart.", "error");
-    return;
-  }
-
-  if (!profile.name || !profile.phone) {
-    setCartStatus("اكتب الاسم والموبايل أولًا ثم أرسل الطلب.", "error");
-    openWelcomeModal(true);
     return;
   }
 
@@ -1102,7 +1066,6 @@ function renderCategories() {
           <article class="service-card">
             <strong>${item.title}</strong>
             <p>${item.description}</p>
-            <span class="service-price">رسوم الحجز المبدئية: ${item.price} جنيه</span>
             <div class="card-actions">
               <button type="button" class="btn btn-cart" data-cart-key="${cartItemKey(category.id, item.id)}" onclick="addToCart('${category.id}', '${item.id}')">Add to Cart</button>
               <a class="btn btn-primary" href="${serviceOrderUrl(category.id, item.id)}">اعمل أوردر</a>
